@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zioon | CRM com WhatsApp e IA para empresas</title>
+<meta name="description" content="CRM com funil de vendas, WhatsApp da equipe e agente de IA que atende o lead e marca a reunião na sua agenda.">
+<meta name="theme-color" content="#0A1A4F">
+<link rel="icon" href="zioon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- META PIXEL: cole aqui o código base do pixel (fbq('init', ...); fbq('track', 'PageView');). Os botões já disparam o evento Contact. -->
+<style>
+:root {
+  --navy: #0A1A4F;
+  --navy-deep: #07123A;
+  --navy-soft: #12256B;
+  --blue: #4C7DFF;
+  --green: #1FB56A;
+  --green-dark: #168F53;
+  --ink: #0E1630;
+  --muted: #5A6482;
+  --line: #E1E6F2;
+  --paper: #F5F7FC;
+  --white: #FFFFFF;
+  --on-navy: #E9EEFF;
+  --on-navy-muted: #AEB9DE;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(10, 26, 79, .10);
+  --font-head: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+img, svg { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--white); color: var(--ink); padding: 10px 14px; border-radius: 8px; z-index: 100; }
+.skip:focus { left: 8px; }
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+section { padding: 84px 0; }
+@media (max-width: 720px) { section { padding: 60px 0; } body { font-size: 16px; } }
+
+/* botões */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 700 16px var(--font-head); text-decoration: none; border: 0; cursor: pointer; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.btn-wa { background: var(--green); color: #fff; box-shadow: 0 8px 22px rgba(31, 181, 106, .35); }
+.btn-wa:hover { background: var(--green-dark); transform: translateY(-1px); }
+.btn-wa:active { transform: translateY(0); }
+.btn-sm { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
+.btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* topo */
+.top { position: sticky; top: 0; z-index: 50; background: rgba(7, 18, 58, .92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font: 800 20px var(--font-head); letter-spacing: .02em; }
+.brand img { width: 34px; height: 34px; border-radius: 8px; }
+
+/* hero */
+.hero { background: radial-gradient(1000px 500px at 85% -10%, rgba(76, 125, 255, .35), transparent 60%), linear-gradient(180deg, var(--navy-deep), var(--navy)); color: var(--on-navy); padding: 72px 0 84px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+.eyebrow { display: inline-block; font: 600 13px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: #9DB6FF; margin-bottom: 18px; }
+.hero h1 { font-size: clamp(34px, 5.2vw, 56px); color: #fff; }
+.hero .lead { margin-top: 20px; font-size: 19px; color: var(--on-navy-muted); max-width: 540px; }
+.hero .cta { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.hero .note { font-size: 14px; color: var(--on-navy-muted); }
+@media (max-width: 900px) { .hero { padding: 48px 0 60px; } .hero .wrap { grid-template-columns: 1fr; gap: 40px; } }
+
+/* conversa de exemplo */
+.phone { background: #0C1830; border: 1px solid rgba(255, 255, 255, .12); border-radius: 26px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, .35); max-width: 420px; margin-left: auto; }
+.phone-head { display: flex; align-items: center; gap: 10px; padding: 8px 10px 12px; color: #fff; }
+.phone-head .av { width: 38px; height: 38px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; font: 800 15px var(--font-head); }
+.phone-head b { display: block; font-size: 15px; }
+.phone-head small { color: #8EA0D8; font-size: 12.5px; }
+.chat { background: #0A1224; border-radius: 18px; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; }
+.msg { max-width: 82%; padding: 9px 12px; border-radius: 14px; font-size: 14.5px; line-height: 1.45; color: #EAF0FF; }
+.msg.in { align-self: flex-start; background: #1B2747; border-top-left-radius: 4px; }
+.msg.out { align-self: flex-end; background: #135C46; border-top-right-radius: 4px; }
+.msg time { display: block; font-size: 10.5px; color: #8FA0CF; text-align: right; margin-top: 2px; }
+.event { margin-top: 4px; background: #fff; color: var(--ink); border-radius: 14px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; }
+.event .ico { width: 40px; height: 40px; border-radius: 10px; background: #E8F9F0; color: var(--green-dark); display: grid; place-items: center; flex-shrink: 0; }
+.event b { display: block; font-size: 14px; }
+.event span { font-size: 12.5px; color: var(--muted); }
+.demo-tag { text-align: center; font-size: 12px; color: #8EA0D8; margin-top: 10px; }
+
+/* títulos de seção */
+.kicker { font: 700 13px var(--font-body); letter-spacing: .09em; text-transform: uppercase; color: var(--blue); }
+.title { font-size: clamp(28px, 3.8vw, 40px); margin-top: 10px; max-width: 760px; }
+.sub { margin-top: 14px; color: var(--muted); max-width: 640px; }
+
+/* problema */
+.problem { background: var(--paper); }
+.cards { display: grid; gap: 16px; margin-top: 40px; }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+.cards.c4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.card .ico { width: 44px; height: 44px; border-radius: 12px; background: #EAF0FF; color: var(--navy-soft); display: grid; place-items: center; margin-bottom: 14px; }
+.card .ico svg { width: 22px; height: 22px; }
+.card h3 { font-size: 18px; margin-bottom: 6px; }
+.card p { font-size: 15.5px; color: var(--muted); }
+.problem .card p { color: var(--ink); font-size: 16px; }
+.problem-close { margin-top: 32px; font: 700 20px var(--font-head); max-width: 640px; }
+@media (max-width: 960px) { .cards.c4 { grid-template-columns: repeat(2, 1fr); } .cards.c3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .cards.c4, .cards.c3 { grid-template-columns: 1fr; } }
+
+/* como funciona */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 40px; counter-reset: s; }
+.step { position: relative; padding: 22px; border-radius: var(--radius); background: var(--navy); color: var(--on-navy); }
+.step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: #fff; font: 800 15px var(--font-head); margin-bottom: 14px; }
+.step h3 { font-size: 18px; color: #fff; margin-bottom: 6px; }
+.step p { font-size: 15px; color: var(--on-navy-muted); }
+@media (max-width: 960px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
+
+/* para quem */
+.who { background: var(--paper); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.chip { padding: 10px 18px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; font-weight: 600; font-size: 15px; }
+
+/* faq */
+.faq { max-width: 780px; margin-top: 32px; }
+details { border-bottom: 1px solid var(--line); padding: 4px 0; }
+summary { cursor: pointer; list-style: none; font: 700 17.5px var(--font-head); padding: 18px 36px 18px 0; position: relative; min-height: 44px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 26px; font-weight: 500; color: var(--blue); transition: transform .2s ease; }
+details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+details p { padding: 0 0 20px; color: var(--muted); max-width: 680px; }
+
+/* chamada final */
+.final { background: linear-gradient(180deg, var(--navy), var(--navy-deep)); color: var(--on-navy); text-align: center; }
+.final h2 { color: #fff; font-size: clamp(28px, 4vw, 42px); max-width: 720px; margin: 0 auto; }
+.final p { margin: 16px auto 0; color: var(--on-navy-muted); max-width: 560px; }
+.final .btn { margin-top: 30px; }
+
+footer { background: var(--navy-deep); color: #8FA0CF; padding: 28px 0 96px; font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
+footer a { text-decoration: underline; }
+
+/* barra fixa no celular */
+.sticky-cta { display: none; }
+@media (max-width: 720px) {
+  .sticky-cta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(7, 18, 58, .96); border-top: 1px solid rgba(255, 255, 255, .1); }
+  .sticky-cta .btn { width: 100%; }
+  .top .btn { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* formulário (modal) */
+dialog.lead { border: 0; padding: 0; width: min(640px, calc(100% - 24px)); max-height: calc(100dvh - 24px); border-radius: 20px; background: var(--white); color: var(--ink); box-shadow: 0 30px 80px rgba(0, 0, 0, .45); overflow: hidden; }
+dialog.lead::backdrop { background: rgba(7, 18, 58, .72); backdrop-filter: blur(3px); }
+.lead-box { display: flex; flex-direction: column; max-height: calc(100dvh - 24px); }
+.lead-head { padding: 22px 24px 8px; position: relative; }
+.lead-head h2 { font-size: 24px; padding-right: 44px; }
+.lead-head p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.lead-x { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--paper); color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+.lead-x:hover { background: var(--line); }
+form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 14px; }
+.fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fld.full { grid-column: 1 / -1; }
+.fld > label, .fld > .lbl { font: 600 14px var(--font-body); color: var(--ink); }
+.fld input, .fld select { width: 100%; min-height: 48px; padding: 0 14px; border: 1.5px solid var(--line); border-radius: 12px; font: 400 16px var(--font-body); color: var(--ink); background: var(--white); transition: border-color .15s ease; }
+.fld input:focus, .fld select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(76, 125, 255, .2); }
+.fld.bad input, .fld.bad select { border-color: #D93B3B; }
+.err { font-size: 13px; color: #B42323; min-height: 0; }
+.radios { display: flex; gap: 10px; flex-wrap: wrap; }
+.radios label { flex: 1; min-width: 150px; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 14px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; font-size: 15.5px; font-weight: 500; }
+.radios input { width: 20px; height: 20px; min-height: 0; flex-shrink: 0; accent-color: var(--blue); }
+.radios label:has(input:checked) { border-color: var(--blue); background: #F0F4FF; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.lead-foot { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 10px; }
+.lead-foot .btn { width: 100%; }
+.lead-foot .btn[disabled] { opacity: .7; cursor: wait; }
+.lead-foot small { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.form-error { grid-column: 1 / -1; background: #FDECEC; color: #8F1D1D; border-radius: 12px; padding: 12px 14px; font-size: 14.5px; }
+.thanks { padding: 36px 28px 32px; text-align: center; }
+.thanks .ok { width: 64px; height: 64px; border-radius: 50%; background: #E8F9F0; color: var(--green-dark); display: grid; place-items: center; margin: 0 auto 16px; }
+.thanks h2 { font-size: 26px; }
+.thanks p { margin: 10px auto 0; color: var(--muted); max-width: 440px; }
+.thanks .btn { margin-top: 22px; }
+@media (max-width: 600px) {
+  dialog.lead { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 20px 20px 0 0; max-height: 94dvh; }
+  .lead-box { max-height: 94dvh; }
+  form.lead-form { grid-template-columns: 1fr; padding: 10px 18px 22px; }
+  .lead-head { padding: 20px 18px 6px; }
+}
+
+/* ===== movimento e 3D ===== */
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero .wrap { position: relative; z-index: 2; }
+#net { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: linear-gradient(rgba(120, 160, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 160, 255, .07) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, #000 20%, transparent 75%); }
+.hero .glow { position: absolute; z-index: 1; width: 520px; height: 520px; right: -140px; top: -120px; background: radial-gradient(circle, rgba(76, 125, 255, .45), transparent 65%); filter: blur(10px); animation: drift 14s ease-in-out infinite; pointer-events: none; }
+@keyframes drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-40px, 30px); } }
+.grad { background: linear-gradient(90deg, #7FA4FF, #5EE6B0, #7FA4FF); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; }
+@keyframes shine { to { background-position: -200% 0; } }
+
+.stage { perspective: 1400px; position: relative; padding: 24px 0; }
+.tilt { position: relative; transform-style: preserve-3d; transition: transform .25s ease-out; will-change: transform; }
+.tilt .phone { margin-left: auto; margin-right: auto; animation: floaty 7s ease-in-out infinite; transform: translateZ(0); box-shadow: 0 40px 80px rgba(0, 0, 0, .45), 0 0 0 1px rgba(127, 164, 255, .18), 0 0 60px rgba(76, 125, 255, .25); }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+.fchip { position: absolute; z-index: 3; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; font: 600 13px var(--font-body); color: #fff; background: rgba(255, 255, 255, .10); border: 1px solid rgba(255, 255, 255, .22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 14px 30px rgba(0, 0, 0, .3); white-space: nowrap; }
+.fchip i { width: 9px; height: 9px; border-radius: 50%; background: #3DE08E; box-shadow: 0 0 0 4px rgba(61, 224, 142, .25); }
+.fchip.a { left: -26px; top: 18%; transform: translateZ(80px); animation: bob 5s ease-in-out infinite; }
+.fchip.b { right: -20px; top: 52%; transform: translateZ(110px); animation: bob 6s ease-in-out -2s infinite; }
+.fchip.c { left: 4%; bottom: 3%; transform: translateZ(70px); animation: bob 5.5s ease-in-out -1s infinite; }
+@keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.msg, .event { transition: opacity .35s ease, transform .35s ease; }
+.chat { position: relative; }
+.chat.playing .msg.hide, .chat.playing .event.hide { opacity: 0; transform: translateY(10px); }
+.typing { position: absolute; left: 12px; z-index: 2; align-self: flex-start; background: #1B2747; border-radius: 14px; border-top-left-radius: 4px; padding: 12px 14px; display: flex; gap: 5px; }
+.typing span { width: 7px; height: 7px; border-radius: 50%; background: #8FA0CF; animation: dot 1s infinite ease-in-out; }
+.typing span:nth-child(2) { animation-delay: .15s; } .typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+.msg.pop, .event.pop { animation: pop .4s cubic-bezier(.2, .9, .3, 1.2); }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: none; } }
+
+.btn-wa { position: relative; overflow: hidden; }
+.btn-wa::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-20deg); animation: sweep 4.5s ease-in-out infinite; }
+@keyframes sweep { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+
+.js [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); transition-delay: var(--d, 0s); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+
+.tcard { transform-style: preserve-3d; transition: transform .2s ease-out, box-shadow .25s ease, border-color .25s ease; will-change: transform; }
+.tcard:hover { box-shadow: 0 18px 40px rgba(10, 26, 79, .16); border-color: #C7D4FF; }
+.card .ico { transition: transform .3s ease, background .3s ease; }
+.card:hover .ico { transform: translateZ(30px) scale(1.08); background: #DCE6FF; }
+.step { overflow: hidden; }
+.step::after { content: ''; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(76, 125, 255, .35), transparent 70%); }
+.steps-title { font: 700 20px var(--font-head); margin-top: 36px; color: var(--ink); }
+
+.final { position: relative; overflow: hidden; isolation: isolate; }
+.final .wrap { position: relative; z-index: 2; }
+.scene3d { position: absolute; inset: 0; z-index: 1; pointer-events: none; perspective: 900px; }
+.cube { position: absolute; left: 7%; top: 22%; width: 90px; height: 90px; transform-style: preserve-3d; animation: spin 18s linear infinite; opacity: .9; }
+.cube.two { left: auto; right: 8%; top: 52%; width: 60px; height: 60px; animation-duration: 24s; animation-direction: reverse; opacity: .7; }
+.cube div { position: absolute; inset: 0; border: 1.5px solid rgba(127, 164, 255, .75); background: rgba(76, 125, 255, .08); box-shadow: inset 0 0 20px rgba(76, 125, 255, .25); }
+.cube div:nth-child(1) { transform: translateZ(45px); } .cube div:nth-child(2) { transform: rotateY(180deg) translateZ(45px); }
+.cube div:nth-child(3) { transform: rotateY(90deg) translateZ(45px); } .cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(45px); }
+.cube div:nth-child(5) { transform: rotateX(90deg) translateZ(45px); } .cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(45px); }
+.cube.two div:nth-child(1) { transform: translateZ(30px); } .cube.two div:nth-child(2) { transform: rotateY(180deg) translateZ(30px); }
+.cube.two div:nth-child(3) { transform: rotateY(90deg) translateZ(30px); } .cube.two div:nth-child(4) { transform: rotateY(-90deg) translateZ(30px); }
+.cube.two div:nth-child(5) { transform: rotateX(90deg) translateZ(30px); } .cube.two div:nth-child(6) { transform: rotateX(-90deg) translateZ(30px); }
+@keyframes spin { from { transform: rotateX(-20deg) rotateY(0); } to { transform: rotateX(-20deg) rotateY(360deg); } }
+.ring { position: absolute; right: 14%; top: 14%; width: 140px; height: 140px; border-radius: 50%; border: 1.5px solid rgba(127, 164, 255, .5); transform: rotateX(68deg); animation: ring 9s linear infinite; box-shadow: 0 0 30px rgba(76, 125, 255, .3); }
+@keyframes ring { from { transform: rotateX(68deg) rotateZ(0); } to { transform: rotateX(68deg) rotateZ(360deg); } }
+@media (max-width: 900px) { .fchip.a { left: 0; } .fchip.b { right: 0; } .cube, .ring { display: none; } .hero .glow { width: 360px; height: 360px; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero .glow, .grad, .tilt .phone, .fchip, .btn-wa::after, .cube, .ring, .typing span { animation: none !important; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+.msg { font-size: 14px; padding: 8px 11px; } .chat { gap: 6px; } .stage { padding: 6px 0; } .hero { padding: 56px 0 64px; }
+@media (max-width: 900px) { .hero { padding: 40px 0 56px; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Zioon"><img src="zioon-192.png" alt="" width="34" height="34">ZIOON</a>
+    <a class="btn btn-wa btn-sm" data-open-form href="#contato">Falar no WhatsApp</a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<section class="hero">
+  <canvas id="net" aria-hidden="true"></canvas><div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">CRM com WhatsApp e IA</span>
+      <h1>Seu lead chega às <span class="grad">22h</span>. Quem responde?</h1>
+      <p class="lead">A Zioon junta funil de vendas, WhatsApp da equipe e um agente de IA que responde o lead na hora, faz as perguntas de qualificação e marca a call com o seu time. Tudo num sistema só.</p>
+      <div class="cta">
+        <a class="btn btn-wa" data-open-form href="#contato">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>
+          Quero ver a Zioon funcionando
+        </a>
+        <span class="note">Fale com a nossa equipe pelo WhatsApp. Sem compromisso.</span>
+      </div>
+    </div>
+
+    <div class="stage">
+     <div class="tilt" id="tilt">
+      <div class="fchip a"><i></i>Lead qualificado</div>
+      <div class="fchip b"><i></i>Call marcada na agenda</div>
+      <div class="fchip c"><i></i>Convite do Meet enviado</div>
+      <div class="phone" role="img" aria-label="Exemplo de conversa em que a IA responde um lead à noite e marca uma call na agenda">
+        <div class="phone-head"><div class="av">Z</div><div><b>Camila · Zioon</b><small>online</small></div></div>
+        <div class="chat">
+          <div class="msg out">Oi, vi o anúncio de vocês. Como funciona?<time>22:04</time></div>
+          <div class="msg in">Oi! Aqui é a Camila, da Zioon. Me conta, hoje você atende o WhatsApp sozinho ou com equipe?<time>22:04</time></div>
+          <div class="msg out">Somos 3 atendentes, mas perdemos muito lead à noite<time>22:05</time></div>
+          <div class="msg in">Show! O agente de IA responde de madrugada e já deixa a call marcada. Tenho terça às 10h ou quarta às 14h. Qual fica melhor?<time>22:05</time></div>
+          <div class="msg out">Terça às 10h<time>22:06</time></div>
+          <div class="event">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div>
+            <div><b>Call marcada: terça, 10h</b><span>Evento criado na agenda, com link do Meet</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-tag">Exemplo de conversa</p>
+     </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <span class="kicker">O problema</span>
+    <h2 class="title">Você reconhece alguma dessas cenas?</h2>
+    <div class="cards c3">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><p>O lead pediu informação às 21h e só foi respondido no dia seguinte, quando já tinha fechado com outro.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM4 9h16M9 4v16"/></svg></div><p>Os contatos estão espalhados entre planilha, caderno e conversas do celular.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.7 6 5"/></svg></div><p>Cada vendedor atende de um número, e ninguém sabe o que o outro já falou com o cliente.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg></div><p>Você fez follow-up uma vez e esqueceu de voltar a falar com o resto da lista.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M10 14l4 4M14 14l-4 4"/></svg></div><p>O cliente marca a reunião e não aparece.</p></div>
+    </div>
+    <p class="problem-close">Isso não é falta de empenho do time. É falta de um lugar onde isso tudo aconteça sozinho.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">A solução</span>
+    <h2 class="title">A Zioon organiza o atendimento e faz o primeiro trabalho por você</h2>
+    <p class="sub">Cada contato vira um card no funil. O WhatsApp da equipe fica dentro do sistema, com histórico e o nome de quem respondeu. E o agente de IA assume a conversa quando ninguém consegue responder.</p>
+    <h3 class="steps-title">Como funciona: do primeiro "oi" até a reunião marcada</h3>
+    <div class="steps">
+      <div class="step"><h3>O lead chega</h3><p>Pelo anúncio, pelo site ou pelo WhatsApp, o contato já cai no funil, na coluna que você escolher.</p></div>
+      <div class="step"><h3>A IA responde na hora</h3><p>Ela conversa como uma pessoa, faz as perguntas que você definiu e tira dúvidas com o que a sua empresa ensinou a ela.</p></div>
+      <div class="step"><h3>A reunião é marcada</h3><p>Ela consulta a sua agenda Google, oferece os horários livres, pede a confirmação do lead e cria o evento com link do Meet.</p></div>
+      <div class="step"><h3>Seu time entra para fechar</h3><p>O vendedor recebe o lead já qualificado, com a reunião na agenda.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" style="background: var(--white);">
+  <div class="wrap">
+    <span class="kicker">O que tem dentro</span>
+    <h2 class="title">O que você usa no dia a dia</h2>
+    <div class="cards c4">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 4h6M9 14h.01M15 14h.01M9.5 17h5"/></svg></div><h3>Agente de IA</h3><p>Atende 24 horas, qualifica, manda foto e vídeo quando fizer sentido e marca a call sozinho. Você define o que ele pode falar, testa antes de ligar e assume quando quiser.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM19 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5 7v4a4 4 0 0 0 4 4h6a4 4 0 0 1 4 4"/></svg></div><h3>Automações de follow-up</h3><p>Monte uma sequência com texto, foto, vídeo e áudio, com esperas entre as mensagens. Ela começa quando o lead entra numa coluna e para quando ele responde.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></div><h3>Funil de vendas</h3><p>Colunas que você personaliza, cards arrastáveis e leads novos sempre no topo. Mova vários de uma vez.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>WhatsApp da equipe</h3><p>Todo mundo atende pelo mesmo número, dentro do sistema. Cada resposta mostra quem enviou.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3zM11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><h3>Campanhas para a sua lista</h3><p>Envie para quem já é seu contato, com o primeiro nome na mensagem e proteção contra bloqueio: horário, intervalo e limite por hora.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg></div><h3>Captura automática de leads</h3><p>Anúncios do Facebook e Instagram, formulários do site e mensagens de WhatsApp viram card sozinhos.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div><h3>Análise do atendimento</h3><p>Veja em quanto tempo sua equipe responde, quem está esperando resposta e o desempenho de cada atendente.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></div><h3>Conversões para a Meta</h3><p>Quando o lead fecha, o sistema avisa a Meta, que passa a mostrar seus anúncios para gente parecida com quem compra.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="wrap">
+    <span class="kicker">Para quem é</span>
+    <h2 class="title">Feito para empresas que vivem de conversa</h2>
+    <p class="sub">Se o seu cliente começa a compra no WhatsApp, a Zioon foi feita para você.</p>
+    <div class="chips">
+      <span class="chip">Agências de marketing</span><span class="chip">Clínicas</span><span class="chip">Imobiliárias</span><span class="chip">Escolas</span><span class="chip">Lojas</span><span class="chip">Prestadores de serviço</span><span class="chip">Times comerciais com vendedor, pré-vendas e closer</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Dúvidas</span>
+    <h2 class="title">Antes de falar com a gente</h2>
+    <div class="faq">
+      <details><summary>A IA vai falar o que quiser com os meus clientes?</summary><p>Não. Ela só usa o que você escreveu sobre a sua empresa, segue as regras que você definir e passa para uma pessoa quando você quiser. Você testa a conversa num simulador antes de ligar.</p></details>
+      <details><summary>Preciso trocar meu número de WhatsApp?</summary><p>Não. Você conecta o número que já usa, por QR Code.</p></details>
+      <details><summary>Existe risco de bloqueio?</summary><p>Campanhas e automações respeitam horário, intervalo entre mensagens e limite por hora e por dia, o que reduz o risco. Nenhum sistema zera esse risco no WhatsApp comum. Para volume maior existe a opção do WhatsApp oficial da Meta.</p></details>
+      <details><summary>A Zioon faz meus anúncios ou meu marketing?</summary><p>Não. A Zioon é o sistema. O que ele faz é não deixar o lead que você já conquistou esfriar.</p></details>
+      <details><summary>Quanto custa?</summary><p>A nossa equipe apresenta o valor de acordo com o tamanho da sua operação, na conversa de apresentação.</p></details>
+      <details><summary>Quanto tempo leva para começar?</summary><p>A nossa equipe ajuda a conectar o WhatsApp, as fontes de leads e a agenda, e a montar o funil e as primeiras automações.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contato">
+  <div class="scene3d" aria-hidden="true"><div class="cube"><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="cube two"><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="ring"></div></div>
+  <div class="wrap">
+    <h2>Veja a Zioon com o cenário da sua empresa</h2>
+    <p>Em uma conversa de uns 30 minutos, o nosso time mostra o sistema funcionando e responde as suas dúvidas. Sem compromisso.</p>
+    <a class="btn btn-wa" data-open-form href="#contato">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>
+      Falar com a equipe no WhatsApp
+    </a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Zioon. Todos os direitos reservados.</span>
+    <a href="https://zioonlab.com.br/politica-de-privacidade/">Política de privacidade</a>
+  </div>
+</footer>
+
+<div class="sticky-cta"><a class="btn btn-wa" data-open-form href="#contato">Falar no WhatsApp</a></div>
+
+<dialog class="lead" id="lead-dialog" aria-labelledby="lead-title">
+  <div class="lead-box">
+    <div id="lead-step-form" style="display:flex;flex-direction:column;min-height:0;">
+      <div class="lead-head">
+        <h2 id="lead-title">Fale com a nossa equipe</h2>
+        <p>Conte um pouco sobre a sua empresa. A gente chama você no WhatsApp para mostrar a Zioon funcionando.</p>
+        <button type="button" class="lead-x" aria-label="Fechar" data-close-form>&times;</button>
+      </div>
+      <form class="lead-form" id="lead-form" novalidate>
+        <div class="fld full"><label for="f-nome">Nome</label><input id="f-nome" name="Nome" type="text" autocomplete="name" required><span class="err" id="e-f-nome"></span></div>
+        <div class="fld"><label for="f-tel">WhatsApp</label><input id="f-tel" name="Telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(61) 99999-9999" required><span class="err" id="e-f-tel"></span></div>
+        <div class="fld"><label for="f-email">E-mail</label><input id="f-email" name="E-mail" type="email" autocomplete="email" required><span class="err" id="e-f-email"></span></div>
+        <div class="fld full"><label for="f-empresa">Nome da empresa</label><input id="f-empresa" name="Nome da empresa" type="text" autocomplete="organization" required><span class="err" id="e-f-empresa"></span></div>
+        <div class="fld"><label for="f-func">Número de funcionários</label>
+          <select id="f-func" name="Número de funcionários" required><option value="">Selecione</option><option>Só eu</option><option>2 a 5</option><option>6 a 15</option><option>16 a 50</option><option>Mais de 50</option></select><span class="err" id="e-f-func"></span></div>
+        <div class="fld"><label for="f-leads">Leads que recebe por mês</label>
+          <select id="f-leads" name="Leads por mês" required><option value="">Selecione</option><option>Menos de 50</option><option>50 a 200</option><option>200 a 500</option><option>500 a 1.000</option><option>Mais de 1.000</option></select><span class="err" id="e-f-leads"></span></div>
+        <div class="fld full"><span class="lbl" id="l-equipe">Tem equipe comercial?</span>
+          <div class="radios" role="radiogroup" aria-labelledby="l-equipe"><label><input type="radio" name="Equipe comercial" value="Sim"> Sim</label><label><input type="radio" name="Equipe comercial" value="Não"> Não, vendo sozinho(a)</label></div><span class="err" id="e-f-equipe"></span></div>
+        <div class="fld full"><label for="f-fat">Faturamento por mês</label>
+          <select id="f-fat" name="Faturamento por mês" required><option value="">Selecione</option><option>Até R$ 30 mil</option><option>De R$ 30 a 50 mil</option><option>De R$ 50 a 100 mil</option><option>Mais de R$ 100 mil</option></select><span class="err" id="e-f-fat"></span></div>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div id="form-error" class="form-error" role="alert" hidden></div>
+        <div class="lead-foot">
+          <button class="btn btn-wa" type="submit" id="lead-submit">Quero falar com a equipe</button>
+          <small>Usamos seus dados só para falar sobre a Zioon. <a href="https://zioonlab.com.br/politica-de-privacidade/">Política de privacidade</a>.</small>
+        </div>
+      </form>
+    </div>
+    <div class="thanks" id="lead-step-thanks" hidden>
+      <div class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></div>
+      <h2>Recebemos seus dados</h2>
+      <p id="thanks-text">Nossa equipe vai chamar você no WhatsApp em breve para marcar a conversa.</p>
+      <a class="btn btn-wa" id="thanks-wa" href="#" hidden>Continuar no WhatsApp</a>
+      <button type="button" class="btn btn-sm" style="margin-top:14px;background:var(--paper);color:var(--ink);" data-close-form>Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+// Número do WhatsApp da Zioon, com 55 e DDD, só dígitos (ex.: 5561999999999). TROQUE ANTES DE PUBLICAR.
+var WA_NUMBER = '55XXXXXXXXXXX';
+// Mensagem que o lead envia depois do formulário. A frase "vim do anúncio" aciona o agente de IA (captura em Conexões).
+var WA_TEXT = 'Olá, vim do anúncio e quero mais informações sobre o crm da Zioon!';
+// Endereço que recebe o lead e cria o card no funil do CRM.
+var INBOUND_URL = 'https://zioon-crm-admin.gabrieloliveira7043.workers.dev/inbound/FpYeH4ytIRM6s5QSHWYvTOkZ';
+
+(function () {
+  var dlg = document.getElementById('lead-dialog');
+  var form = document.getElementById('lead-form');
+  var stepForm = document.getElementById('lead-step-form');
+  var stepThanks = document.getElementById('lead-step-thanks');
+  var errBox = document.getElementById('form-error');
+  var submit = document.getElementById('lead-submit');
+  var lastFocus = null;
+  var waOk = /^\d{12,13}$/.test(WA_NUMBER);
+
+  function track(name) { try { if (window.fbq) fbq('track', name); } catch (e) {} }
+
+  document.querySelectorAll('[data-open-form]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      lastFocus = a;
+      stepForm.hidden = false; stepThanks.hidden = true;
+      if (!dlg.open) dlg.showModal();
+      track('InitiateCheckout');
+      setTimeout(function () { document.getElementById('f-nome').focus(); }, 50);
+    });
+  });
+  document.querySelectorAll('[data-close-form]').forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
+  dlg.addEventListener('click', function (ev) { if (ev.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', function () { if (lastFocus) lastFocus.focus(); });
+
+  // máscara simples do telefone: (61) 99999-9999
+  var tel = document.getElementById('f-tel');
+  tel.addEventListener('input', function () {
+    var d = tel.value.replace(/\D/g, '').slice(0, 11);
+    if (d.length > 6) tel.value = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length > 10 ? 7 : 6) + '-' + d.slice(d.length > 10 ? 7 : 6);
+    else if (d.length > 2) tel.value = '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    else tel.value = d;
+  });
+
+  var rules = {
+    'f-nome': function (v) { return v.trim().length >= 2 ? '' : 'Informe seu nome.'; },
+    'f-tel': function (v) { var d = v.replace(/\D/g, ''); return d.length >= 10 && d.length <= 11 ? '' : 'Informe o WhatsApp com DDD.'; },
+    'f-email': function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Informe um e-mail válido.'; },
+    'f-empresa': function (v) { return v.trim().length >= 2 ? '' : 'Informe o nome da empresa.'; },
+    'f-func': function (v) { return v ? '' : 'Escolha uma opção.'; },
+    'f-leads': function (v) { return v ? '' : 'Escolha uma opção.'; },
+    'f-fat': function (v) { return v ? '' : 'Escolha uma opção.'; }
+  };
+  function check(id) {
+    var el = document.getElementById(id), msg = rules[id](el.value);
+    document.getElementById('e-' + id).textContent = msg;
+    el.closest('.fld').classList.toggle('bad', !!msg);
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return !msg;
+  }
+  Object.keys(rules).forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener('blur', function () { check(id); });
+    el.addEventListener('change', function () { if (el.closest('.fld').classList.contains('bad')) check(id); });
+  });
+  form.querySelectorAll('input[name="Equipe comercial"]').forEach(function (r) { r.addEventListener('change', function () { document.getElementById('e-f-equipe').textContent = ''; }); });
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    errBox.hidden = true;
+    var firstBad = null;
+    Object.keys(rules).forEach(function (id) { if (!check(id) && !firstBad) firstBad = document.getElementById(id); });
+    var equipe = form.querySelector('input[name="Equipe comercial"]:checked');
+    if (!equipe) { document.getElementById('e-f-equipe').textContent = 'Escolha uma opção.'; if (!firstBad) firstBad = form.querySelector('input[name="Equipe comercial"]'); }
+    if (firstBad) { firstBad.focus(); return; }
+
+    var body = {};
+    new FormData(form).forEach(function (v, k) { body[k] = v; });
+    // guarda de onde veio o clique do anúncio (UTM e fbclid) junto do lead
+    var q = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(function (k) { if (q.get(k)) body[k] = q.get(k); });
+
+    submit.disabled = true; submit.textContent = 'Enviando...';
+    fetch(INBOUND_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok || d.ok === false) throw new Error(d.error || 'erro'); }); })
+      .then(function () {
+        track('Lead');
+        stepForm.hidden = true; stepThanks.hidden = false;
+        var wa = document.getElementById('thanks-wa');
+        if (waOk) {
+          wa.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(WA_TEXT);
+          wa.target = '_blank'; wa.rel = 'noopener'; wa.hidden = false;
+          document.getElementById('thanks-text').textContent = 'Para acelerar, continue a conversa no WhatsApp. Nossa equipe também vai chamar você.';
+        }
+        form.reset();
+      })
+      .catch(function () {
+        errBox.textContent = 'Não conseguimos enviar agora. Confira a sua conexão e tente de novo.';
+        errBox.hidden = false;
+      })
+      .then(function () { submit.disabled = false; submit.textContent = 'Quero falar com a equipe'; });
+  });
+})();
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  root.classList.add('js');
+
+  // 1) aparece ao rolar
+  var groups = ['.problem .card', '.steps .step', '.cards.c4 .card', '.chip', 'details', '.title', '.kicker', '.sub', '.problem-close', '.steps-title'];
+  groups.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el, i) { el.setAttribute('data-reveal', ''); el.style.setProperty('--d', (Math.min(i, 7) * 0.07) + 's'); });
+  });
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
+  } else { document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('in'); }); }
+
+  // 2) inclinação 3D do celular e dos cards, acompanhando o mouse
+  if (canHover && !reduce) {
+    var stage = document.querySelector('.stage'), tilt = document.getElementById('tilt');
+    if (stage && tilt) {
+      stage.addEventListener('pointermove', function (e) {
+        var r = stage.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        tilt.style.transform = 'rotateY(' + (x * 16).toFixed(2) + 'deg) rotateX(' + (-y * 12).toFixed(2) + 'deg)';
+      });
+      stage.addEventListener('pointerleave', function () { tilt.style.transform = ''; });
+    }
+    document.querySelectorAll('.card, .step').forEach(function (c) {
+      c.classList.add('tcard');
+      c.addEventListener('pointermove', function (e) {
+        var r = c.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        c.style.transform = 'perspective(700px) rotateY(' + (x * 8).toFixed(2) + 'deg) rotateX(' + (-y * 8).toFixed(2) + 'deg) translateY(-3px)';
+      });
+      c.addEventListener('pointerleave', function () { c.style.transform = ''; });
+    });
+  }
+
+  // 3) conversa de exemplo "digitando": as mensagens aparecem uma a uma
+  var chat = document.querySelector('.chat');
+  if (chat && !reduce) {
+    var items = Array.prototype.slice.call(chat.children);
+    chat.classList.add('playing');
+    items.forEach(function (el) { el.classList.add('hide'); });
+    var typing = document.createElement('div'); typing.className = 'typing'; typing.innerHTML = '<span></span><span></span><span></span>';
+    var t = 700;
+    items.forEach(function (el) {
+      var isIn = el.classList.contains('in') && el.classList.contains('msg');
+      if (isIn) { setTimeout(function () { typing.style.top = el.offsetTop + 'px'; chat.appendChild(typing); }, t); t += 1100; }
+      else t += 500;
+      setTimeout(function () { if (typing.parentNode) typing.parentNode.removeChild(typing); el.classList.remove('hide'); el.classList.add('pop'); }, t);
+      t += 650;
+    });
+  }
+
+  // 4) rede de pontos no fundo do topo
+  var cv = document.getElementById('net');
+  if (cv && cv.getContext) {
+    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), pts = [], visible = true, raf = 0;
+    function size() {
+      var r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = W < 700 ? 22 : 46; pts = [];
+      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35 });
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        if (!reduce) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.8, 0, 6.283); ctx.fillStyle = 'rgba(150, 185, 255, .75)'; ctx.fill();
+        for (var j = i + 1; j < pts.length; j++) {
+          var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 130) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.strokeStyle = 'rgba(120, 160, 255,' + (0.28 * (1 - d / 130)).toFixed(3) + ')'; ctx.lineWidth = 1; ctx.stroke(); }
+        }
+      }
+      if (!reduce && visible && !document.hidden) raf = requestAnimationFrame(draw);
+    }
+    function start() { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }
+    size(); draw();
+    window.addEventListener('resize', function () { size(); if (reduce) draw(); });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && !reduce) start(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && !reduce) start(); }).observe(cv);
+  }
+})();
+</script>
+
+</body>
+</html>
