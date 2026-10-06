@@ -254,6 +254,143 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
 }
 .msg { font-size: 14px; padding: 8px 11px; } .chat { gap: 6px; } .stage { padding: 6px 0; } .hero { padding: 56px 0 64px; }
 @media (max-width: 900px) { .hero { padding: 40px 0 56px; } }
+
+/* ===== botão principal ===== */
+.btn-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, #5B8CFF, #2E5BFF); color: #fff; box-shadow: 0 10px 26px rgba(46, 91, 255, .38); }
+.btn-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(46, 91, 255, .48); }
+.btn-cta:active { transform: translateY(0); }
+.btn-cta::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-20deg); animation: sweep 4.5s ease-in-out infinite; }
+.btn-cta svg { transition: transform .2s ease; }
+.btn-cta:hover svg { transform: translateX(3px); }
+
+/* ===== logos rolando ===== */
+.logos { padding: 40px 0 44px; background: var(--white); border-bottom: 1px solid var(--line); }
+.logos p { text-align: center; color: var(--muted); font-size: 15px; font-weight: 500; padding: 0 20px; }
+.marquee { margin-top: 22px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee:hover .track { animation-play-state: paused; }
+.track > div { display: flex; flex-shrink: 0; }
+.logo { display: inline-flex; align-items: center; gap: 10px; margin: 0 30px; font: 700 18px var(--font-head); color: #4A5470; white-space: nowrap; }
+.logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (max-width: 600px) { .logo { font-size: 16px; margin: 0 20px; } .logo svg { width: 24px; height: 24px; } }
+
+/* ===== funcionalidades com telas ===== */
+.feats { background: var(--white); }
+.fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 40px; }
+@media (max-width: 860px) { .fgrid { grid-template-columns: minmax(0, 1fr); } }
+
+.fcard { background: var(--white); border: 1px solid var(--line); border-radius: 22px; padding: 22px 22px 26px; box-shadow: 0 6px 24px rgba(10, 26, 79, .06); }
+.fcard h3 { font-size: 21px; margin-top: 22px; }
+.fcard p { margin-top: 8px; color: var(--muted); font-size: 15.5px; }
+.mock { height: 214px; border-radius: 16px; background: linear-gradient(180deg, #F5F7FC, #EEF2FB); border: 1px solid var(--line); padding: 16px; overflow: hidden; position: relative; font-size: 13px; color: var(--ink); }
+.av { width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; flex-shrink: 0; font: 800 12.5px var(--font-head); color: #fff; box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px #7C8CFF; }
+.g1 { background: linear-gradient(135deg, #F28AB2, #B44D86); } .g2 { background: linear-gradient(135deg, #F6B26B, #D3612C); } .g3 { background: linear-gradient(135deg, #7FD3C4, #23927F); }
+.g4 { background: linear-gradient(135deg, #8FB0FF, #3E63D6); } .g5 { background: linear-gradient(135deg, #C59BFF, #7A45D8); } .g6 { background: linear-gradient(135deg, #9AD07A, #4C9A2F); }
+.mock b { font-weight: 700; }
+.mock small { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* agente de IA */
+.m-chat .mhead { display: flex; align-items: center; gap: 10px; }
+.m-chat .mhead > div { min-width: 0; flex: 1; }
+.m-chat .tag { font: 700 11px var(--font-body); color: #2E5BFF; background: #E3EAFF; padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.bub { margin-top: 10px; max-width: 82%; padding: 8px 11px; border-radius: 13px; line-height: 1.4; }
+.bub.in { background: #fff; border: 1px solid var(--line); border-top-left-radius: 4px; }
+.bub.out { margin-left: auto; background: #DCF8E8; border-top-right-radius: 4px; }
+.think { margin-top: 10px; display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-style: italic; color: var(--muted); }
+.think span { width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF; animation: dot 1s infinite ease-in-out; }
+.think span:nth-child(2) { animation-delay: .15s; } .think span:nth-child(3) { animation-delay: .3s; margin-right: 6px; }
+
+/* whatsapp da equipe */
+.m-team .search { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; }
+.m-team .search svg { width: 15px; height: 15px; flex-shrink: 0; }
+.m-team .row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.m-team .row > div { min-width: 0; flex: 1; }
+.m-team .who { font: 600 11px var(--font-body); color: var(--navy-soft); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; white-space: nowrap; }
+.m-team .badge { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: #fff; font: 700 11px var(--font-body); display: grid; place-items: center; }
+
+/* funil */
+.m-kanban { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.m-kanban .col { background: rgba(255, 255, 255, .7); border: 1px solid var(--line); border-radius: 12px; padding: 8px 6px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.m-kanban .col b { font-size: 11.5px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.m-kanban .av { width: 40px; height: 40px; }
+.m-kanban .moving { animation: hop 3.2s ease-in-out infinite; }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* follow-up */
+.m-flow { display: flex; flex-direction: column; }
+.m-flow .fl { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; font-weight: 600; font-size: 12.5px; }
+.m-flow .fl em { margin-left: auto; font-style: normal; font-weight: 500; color: var(--muted); font-size: 11.5px; white-space: nowrap; }
+.m-flow .fi { width: 24px; height: 24px; border-radius: 7px; background: #E3EAFF; color: #2E5BFF; display: grid; place-items: center; flex-shrink: 0; }
+.m-flow .fi svg { width: 13px; height: 13px; }
+.m-flow .wait { margin-left: 21px; padding: 3px 0 3px 14px; border-left: 2px dashed #B9C6EE; font-size: 11px; color: var(--muted); }
+.m-flow .stop { margin-top: 9px; font-size: 11.5px; font-weight: 600; color: var(--green-dark); }
+
+/* captura */
+.m-capture { display: grid; grid-template-columns: auto 36px 1fr; align-items: center; gap: 4px; }
+.m-capture .srcs { display: flex; flex-direction: column; gap: 8px; }
+.m-capture .srcs span { display: flex; align-items: center; gap: 7px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px 5px 7px; font-weight: 600; font-size: 12px; }
+.m-capture .srcs svg { width: 18px; height: 18px; }
+.m-capture .pipe { display: flex; flex-direction: column; gap: 22px; align-items: stretch; }
+.m-capture .pipe i { height: 2px; background: repeating-linear-gradient(90deg, #7C8CFF 0 6px, transparent 6px 10px); background-size: 20px 2px; animation: flow 1s linear infinite; }
+@keyframes flow { to { background-position: 20px 0; } }
+.m-capture .newlead { background: #fff; border: 1.5px solid #B9C6FF; border-radius: 14px; padding: 12px; box-shadow: 0 10px 24px rgba(46, 91, 255, .12); min-width: 0; }
+.m-capture .newlead > div { display: flex; align-items: center; gap: 9px; margin: 8px 0 6px; }
+.m-capture .newlead b { font-size: 13px; }
+.m-capture .newlead em { font-style: normal; font-size: 11.5px; color: var(--muted); }
+
+/* campanhas */
+.m-camp .preview { background: #DCF8E8; border-radius: 13px; border-top-right-radius: 4px; padding: 10px 12px; line-height: 1.45; margin-left: 12%; }
+.m-camp mark { background: #FFE58A; border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.m-camp .prog { margin-top: 16px; }
+.m-camp .prog > div { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.m-camp .prog > div b { color: var(--ink); }
+.m-camp .prog i { display: block; margin-top: 6px; height: 8px; border-radius: 99px; background: #DDE4F5; overflow: hidden; }
+.m-camp .prog i span { display: block; height: 100%; width: 61%; border-radius: 99px; background: linear-gradient(90deg, #5B8CFF, #2E5BFF); }
+.m-camp .rules { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.m-camp .rules span { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 11.5px; font-weight: 600; color: var(--navy-soft); }
+
+/* análise */
+.m-stats .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.m-stats .tiles div { background: #fff; border: 1px solid var(--line); border-radius: 11px; padding: 8px 10px; min-width: 0; }
+.m-stats .tiles small { font-size: 11px; }
+.m-stats .tiles b { font: 800 18px var(--font-head); }
+.m-stats .hbars { margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+.m-stats .hbars div { display: grid; grid-template-columns: 46px 1fr; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); font-weight: 600; }
+.m-stats .hbars i { display: block; height: 12px; width: var(--w); border-radius: 99px; background: linear-gradient(90deg, #A9BDFF, #5B7CFF); transform-origin: left; }
+.m-stats .hbars i.ia { background: linear-gradient(90deg, #8FE3B8, #1FB56A); }
+.js .m-stats .hbars i { transform: scaleX(.05); transition: transform 1.1s cubic-bezier(.2, .8, .2, 1); }
+.js .fcard.in .m-stats .hbars i { transform: none; }
+
+/* conversões meta */
+.m-meta { display: flex; flex-direction: column; justify-content: center; }
+.m-meta .ev { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; }
+.m-meta .ev > div { min-width: 0; flex: 1; }
+.m-meta .ev.ok { border-color: #A8E5C5; box-shadow: 0 10px 24px rgba(31, 181, 106, .14); }
+.m-meta .mlogo { width: 36px; height: 36px; border-radius: 50%; background: #E8F0FF; display: grid; place-items: center; flex-shrink: 0; }
+.m-meta .mlogo svg { width: 22px; height: 22px; }
+.m-meta .check { width: 22px; height: 22px; color: var(--green); flex-shrink: 0; }
+.m-meta .arrow { display: grid; place-items: center; color: #7C8CFF; padding: 6px 0; }
+.m-meta .arrow svg { width: 20px; height: 20px; animation: bob 2s ease-in-out infinite; }
+
+@media (max-width: 600px) {
+  .fcard { padding: 14px 14px 22px; } .mock { padding: 12px; }
+  .m-kanban { gap: 5px; } .m-kanban .col { padding: 8px 2px; } .m-kanban .col b { font-size: 10px; } .m-kanban .av { width: 32px; height: 32px; font-size: 11px; }
+  .m-capture { grid-template-columns: minmax(0, 1fr); align-content: center; gap: 12px; }
+  .m-capture .srcs { flex-direction: row; flex-wrap: wrap; gap: 6px; } .m-capture .pipe { display: none; }
+}
+
+/* faq em cartões */
+.faq details { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 2px 22px; margin-bottom: 12px; transition: border-color .2s ease, box-shadow .2s ease; }
+.faq details[open] { border-color: #9DB2FF; box-shadow: 0 10px 28px rgba(46, 91, 255, .08); }
+.faq details p { padding-bottom: 22px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-cta::after, .track, .think span, .m-kanban .moving, .m-capture .pipe i, .m-meta .arrow svg { animation: none !important; }
+  .track { flex-wrap: wrap; width: auto; justify-content: center; }
+  .track > div[aria-hidden] { display: none; }
+  .js .m-stats .hbars i { transform: none; }
+}
 </style>
 </head>
 <body>
@@ -262,7 +399,7 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#" aria-label="Zioon"><img src="zioon-192.png" alt="" width="34" height="34">ZIOON</a>
-    <a class="btn btn-wa btn-sm" data-open-form href="#contato">Falar no WhatsApp</a>
+    <a class="btn btn-cta btn-sm" data-open-form href="#contato">Conhecer a Zioon</a>
   </div>
 </header>
 
@@ -276,11 +413,11 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
       <h1>Seu lead chega às <span class="grad">22h</span>. Quem responde?</h1>
       <p class="lead">A Zioon junta funil de vendas, WhatsApp da equipe e um agente de IA que responde o lead na hora, faz as perguntas de qualificação e marca a call com o seu time. Tudo num sistema só.</p>
       <div class="cta">
-        <a class="btn btn-wa" data-open-form href="#contato">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>
-          Quero ver a Zioon funcionando
+        <a class="btn btn-cta" data-open-form href="#contato">
+          Conhecer a Zioon
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <span class="note">Fale com a nossa equipe pelo WhatsApp. Sem compromisso.</span>
+        <span class="note">Uma conversa rápida com o nosso time, sem compromisso.</span>
       </div>
     </div>
 
@@ -307,6 +444,26 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
      </div>
     </div>
   </div>
+</section>
+
+<section class="logos" aria-label="Integrações">
+  <p>Conecta com os canais onde seus leads já estão</p>
+  <div class="marquee"><div class="track">
+    <div><span class="logo"><svg viewBox="0 0 24 24"><path fill="#25D366" d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>WhatsApp</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="url(#igg)" stroke-width="2.2"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".4" stop-color="#FA7E1E"/><stop offset=".7" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="#D62976" stroke="none"/></svg>Instagram</span>
+<span class="logo"><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>Facebook</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2.4" stroke-linecap="round"><path d="M2.5 14.5c0-4.5 2-8 4.6-8 3.6 0 6.2 11 9.8 11 2 0 4.6-2.2 4.6-5.5S19 6.5 17 6.5c-3.6 0-6.2 11-9.8 11-2.6 0-4.7-1-4.7-3z"/></svg>Meta Ads</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 15h3M13 15h3M8 18h3" stroke="#34A853"/></svg>Google Agenda</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><path d="m15 10 6-4v12l-6-4"/></svg>Google Meet</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#4C7DFF" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Formulários do site</span></div>
+    <div aria-hidden="true"><span class="logo"><svg viewBox="0 0 24 24"><path fill="#25D366" d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>WhatsApp</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="url(#igg2)" stroke-width="2.2"><defs><linearGradient id="igg2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".4" stop-color="#FA7E1E"/><stop offset=".7" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="#D62976" stroke="none"/></svg>Instagram</span>
+<span class="logo"><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>Facebook</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2.4" stroke-linecap="round"><path d="M2.5 14.5c0-4.5 2-8 4.6-8 3.6 0 6.2 11 9.8 11 2 0 4.6-2.2 4.6-5.5S19 6.5 17 6.5c-3.6 0-6.2 11-9.8 11-2.6 0-4.7-1-4.7-3z"/></svg>Meta Ads</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 15h3M13 15h3M8 18h3" stroke="#34A853"/></svg>Google Agenda</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><path d="m15 10 6-4v12l-6-4"/></svg>Google Meet</span>
+<span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#4C7DFF" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Formulários do site</span></div>
+  </div></div>
 </section>
 
 <section class="problem">
@@ -339,19 +496,107 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
   </div>
 </section>
 
-<section class="problem" style="background: var(--white);">
+<section class="feats">
   <div class="wrap">
     <span class="kicker">O que tem dentro</span>
     <h2 class="title">O que você usa no dia a dia</h2>
-    <div class="cards c4">
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 4h6M9 14h.01M15 14h.01M9.5 17h5"/></svg></div><h3>Agente de IA</h3><p>Atende 24 horas, qualifica, manda foto e vídeo quando fizer sentido e marca a call sozinho. Você define o que ele pode falar, testa antes de ligar e assume quando quiser.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM19 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5 7v4a4 4 0 0 0 4 4h6a4 4 0 0 1 4 4"/></svg></div><h3>Automações de follow-up</h3><p>Monte uma sequência com texto, foto, vídeo e áudio, com esperas entre as mensagens. Ela começa quando o lead entra numa coluna e para quando ele responde.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg></div><h3>Funil de vendas</h3><p>Colunas que você personaliza, cards arrastáveis e leads novos sempre no topo. Mova vários de uma vez.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>WhatsApp da equipe</h3><p>Todo mundo atende pelo mesmo número, dentro do sistema. Cada resposta mostra quem enviou.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3zM11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><h3>Campanhas para a sua lista</h3><p>Envie para quem já é seu contato, com o primeiro nome na mensagem e proteção contra bloqueio: horário, intervalo e limite por hora.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg></div><h3>Captura automática de leads</h3><p>Anúncios do Facebook e Instagram, formulários do site e mensagens de WhatsApp viram card sozinhos.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div><h3>Análise do atendimento</h3><p>Veja em quanto tempo sua equipe responde, quem está esperando resposta e o desempenho de cada atendente.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></div><h3>Conversões para a Meta</h3><p>Quando o lead fecha, o sistema avisa a Meta, que passa a mostrar seus anúncios para gente parecida com quem compra.</p></div>
+    <div class="fgrid">
+
+      <article class="fcard">
+        <div class="mock m-chat" aria-hidden="true">
+          <div class="mhead"><span class="av g1">CL</span><div><b>Carla Lima</b><small>veio do anúncio do Instagram</small></div><span class="tag">IA atendendo</span></div>
+          <div class="bub in">Vocês atendem no sábado?</div>
+          <div class="bub out">Atendemos sim, das 8h às 12h. Quer que eu já deixe um horário reservado pra você?</div>
+          <div class="think"><span></span><span></span><span></span>Qualificando o lead</div>
+        </div>
+        <h3>Agente de IA</h3>
+        <p>Atende 24 horas, qualifica, manda foto e vídeo quando fizer sentido e marca a call sozinho. Você define o que ele pode falar, testa antes de ligar e assume quando quiser.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-team" aria-hidden="true">
+          <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Buscar conversas, contatos ou etiquetas</div>
+          <div class="row"><span class="av g2">RS</span><div><b>Rafael Souza</b><small>Fechado, pode mandar o contrato</small></div><span class="who">Ana</span></div>
+          <div class="row"><span class="av g3">JM</span><div><b>Juliana Melo</b><small>Qual o valor da mensalidade?</small></div><span class="badge">2</span></div>
+          <div class="row"><span class="av g4">PT</span><div><b>Paulo Teixeira</b><small>Te mandei a planta por aqui</small></div><span class="who">Bruno</span></div>
+        </div>
+        <h3>WhatsApp da equipe</h3>
+        <p>Todo mundo atende pelo mesmo número, dentro do sistema. Cada resposta mostra quem enviou.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-kanban" aria-hidden="true">
+          <div class="col"><b>Novo</b><span class="av g1">CL</span><span class="av g3">JM</span></div>
+          <div class="col"><b>Contato</b><span class="av g4">PT</span><span class="av g5">MF</span></div>
+          <div class="col"><b>Proposta</b><span class="av g6">LA</span></div>
+          <div class="col"><b>Fechado</b><span class="av g2 moving">RS</span></div>
+        </div>
+        <h3>Funil de vendas</h3>
+        <p>Colunas que você personaliza, cards arrastáveis e leads novos sempre no topo. Mova vários de uma vez.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-flow" aria-hidden="true">
+          <div class="fl"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Mensagem de boas-vindas<em>na hora</em></div>
+          <div class="wait">espera 1 dia</div>
+          <div class="fl"><span class="fi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>Vídeo mostrando o produto<em>dia 2</em></div>
+          <div class="wait">espera 2 dias</div>
+          <div class="fl"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>Áudio do vendedor<em>dia 4</em></div>
+          <div class="stop">O lead respondeu. A sequência parou sozinha.</div>
+        </div>
+        <h3>Automações de follow-up</h3>
+        <p>Monte uma sequência com texto, foto, vídeo e áudio, com esperas entre as mensagens. Ela começa quando o lead entra numa coluna e para quando ele responde.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-capture" aria-hidden="true">
+          <div class="srcs">
+            <span><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>Facebook</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="#E1306C"/></svg>Instagram</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="#4C7DFF" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Site</span>
+            <span><svg viewBox="0 0 24 24"><path fill="#25D366" d="M12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5c6.5 0 11.9-5.3 11.9-11.9S18.5 0 12 0z"/></svg>WhatsApp</span>
+          </div>
+          <div class="pipe"><i></i><i></i><i></i><i></i></div>
+          <div class="newlead"><small>Novo card no funil</small><div><span class="av g5">MF</span><b>Marina Freitas</b></div><em>Origem: anúncio do Facebook</em></div>
+        </div>
+        <h3>Captura automática de leads</h3>
+        <p>Anúncios do Facebook e Instagram, formulários do site e mensagens de WhatsApp viram card sozinhos.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-camp" aria-hidden="true">
+          <div class="preview">Oi, <mark>Mariana</mark>! Abrimos a agenda de outubro e separei dois horários pra você. Quer que eu reserve?</div>
+          <div class="prog"><div><span>Enviadas</span><b>184 de 300</b></div><i><span></span></i></div>
+          <div class="rules"><span>8h às 18h</span><span>30 por hora</span><span>intervalo de 40s</span></div>
+        </div>
+        <h3>Campanhas para a sua lista</h3>
+        <p>Envie para quem já é seu contato, com o primeiro nome na mensagem e proteção contra bloqueio: horário, intervalo e limite por hora.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-stats" aria-hidden="true">
+          <div class="tiles"><div><small>Tempo de resposta</small><b>2 min</b></div><div><small>Esperando resposta</small><b>4</b></div><div><small>Conversas hoje</small><b>87</b></div></div>
+          <div class="hbars">
+            <div><span>Ana</span><i style="--w:88%"></i></div>
+            <div><span>Bruno</span><i style="--w:64%"></i></div>
+            <div><span>Carla</span><i style="--w:76%"></i></div>
+            <div><span>IA</span><i class="ia" style="--w:100%"></i></div>
+          </div>
+        </div>
+        <h3>Análise do atendimento</h3>
+        <p>Veja em quanto tempo sua equipe responde, quem está esperando resposta e o desempenho de cada atendente.</p>
+      </article>
+
+      <article class="fcard">
+        <div class="mock m-meta" aria-hidden="true">
+          <div class="ev"><span class="av g2">RS</span><div><b>Rafael Souza</b><small>movido para Fechado</small></div></div>
+          <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
+          <div class="ev ok"><span class="mlogo"><svg viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2.4" stroke-linecap="round"><path d="M2.5 14.5c0-4.5 2-8 4.6-8 3.6 0 6.2 11 9.8 11 2 0 4.6-2.2 4.6-5.5S19 6.5 17 6.5c-3.6 0-6.2 11-9.8 11-2.6 0-4.7-1-4.7-3z"/></svg></span><div><b>Conversão enviada para a Meta</b><small>os anúncios aprendem quem compra</small></div><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+        </div>
+        <h3>Conversões para a Meta</h3>
+        <p>Quando o lead fecha, o sistema avisa a Meta, que passa a mostrar seus anúncios para gente parecida com quem compra.</p>
+      </article>
+
     </div>
   </div>
 </section>
@@ -372,6 +617,8 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
     <span class="kicker">Dúvidas</span>
     <h2 class="title">Antes de falar com a gente</h2>
     <div class="faq">
+      <details><summary>Já tive CRM e a equipe abandonou. Por que agora seria diferente?</summary><p>Porque a Zioon não depende de alguém lembrar de preencher nada. O lead entra no funil sozinho, vindo do anúncio, do site ou do WhatsApp. A conversa acontece dentro do sistema, então o histórico fica salvo sem esforço. E o primeiro atendimento e o follow-up rodam mesmo quando ninguém está olhando.</p></details>
+      <details><summary>Minha equipe vai ter que aprender uma ferramenta complicada?</summary><p>Não. A tela de conversas funciona como o WhatsApp que eles já usam, só que com o funil e o histórico do cliente do lado. E a configuração inicial a nossa equipe faz junto com você.</p></details>
       <details><summary>A IA vai falar o que quiser com os meus clientes?</summary><p>Não. Ela só usa o que você escreveu sobre a sua empresa, segue as regras que você definir e passa para uma pessoa quando você quiser. Você testa a conversa num simulador antes de ligar.</p></details>
       <details><summary>Preciso trocar meu número de WhatsApp?</summary><p>Não. Você conecta o número que já usa, por QR Code.</p></details>
       <details><summary>Existe risco de bloqueio?</summary><p>Campanhas e automações respeitam horário, intervalo entre mensagens e limite por hora e por dia, o que reduz o risco. Nenhum sistema zera esse risco no WhatsApp comum. Para volume maior existe a opção do WhatsApp oficial da Meta.</p></details>
@@ -385,11 +632,11 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
 <section class="final" id="contato">
   <div class="scene3d" aria-hidden="true"><div class="cube"><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="cube two"><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="ring"></div></div>
   <div class="wrap">
-    <h2>Veja a Zioon com o cenário da sua empresa</h2>
+    <h2>Veja a Zioon funcionando na sua operação</h2>
     <p>Em uma conversa de uns 30 minutos, o nosso time mostra o sistema funcionando e responde as suas dúvidas. Sem compromisso.</p>
-    <a class="btn btn-wa" data-open-form href="#contato">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.5h.1c6.5 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.5 6.6 2.1 12 2.1c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 3 1.2 3 .8 3.6.7.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.2-.3-.3-.6-.4z"/></svg>
-      Falar com a equipe no WhatsApp
+    <a class="btn btn-cta" data-open-form href="#contato">
+      Conhecer a Zioon
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </div>
 </section>
@@ -402,7 +649,7 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
   </div>
 </footer>
 
-<div class="sticky-cta"><a class="btn btn-wa" data-open-form href="#contato">Falar no WhatsApp</a></div>
+<div class="sticky-cta"><a class="btn btn-cta" data-open-form href="#contato">Conhecer a Zioon <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 
 <dialog class="lead" id="lead-dialog" aria-labelledby="lead-title">
   <div class="lead-box">
@@ -428,7 +675,7 @@ form.lead-form { padding: 12px 24px 24px; overflow-y: auto; display: grid; grid-
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div id="form-error" class="form-error" role="alert" hidden></div>
         <div class="lead-foot">
-          <button class="btn btn-wa" type="submit" id="lead-submit">Quero falar com a equipe</button>
+          <button class="btn btn-cta" type="submit" id="lead-submit">Quero falar com a equipe</button>
           <small>Usamos seus dados só para falar sobre a Zioon. <a href="https://zioonlab.com.br/politica-de-privacidade/">Política de privacidade</a>.</small>
         </div>
       </form>
@@ -554,7 +801,7 @@ var INBOUND_URL = 'https://zioon-crm-admin.gabrieloliveira7043.workers.dev/inbou
   root.classList.add('js');
 
   // 1) aparece ao rolar
-  var groups = ['.problem .card', '.steps .step', '.cards.c4 .card', '.chip', 'details', '.title', '.kicker', '.sub', '.problem-close', '.steps-title'];
+  var groups = ['.problem .card', '.steps .step', '.fcard', '.chip', 'details', '.title', '.kicker', '.sub', '.problem-close', '.steps-title'];
   groups.forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (el, i) { el.setAttribute('data-reveal', ''); el.style.setProperty('--d', (Math.min(i, 7) * 0.07) + 's'); });
   });
@@ -574,7 +821,7 @@ var INBOUND_URL = 'https://zioon-crm-admin.gabrieloliveira7043.workers.dev/inbou
       });
       stage.addEventListener('pointerleave', function () { tilt.style.transform = ''; });
     }
-    document.querySelectorAll('.card, .step').forEach(function (c) {
+    document.querySelectorAll('.card, .step, .fcard').forEach(function (c) {
       c.classList.add('tcard');
       c.addEventListener('pointermove', function (e) {
         var r = c.getBoundingClientRect();
